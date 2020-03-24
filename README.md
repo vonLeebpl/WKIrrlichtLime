@@ -1,5 +1,7 @@
 # The Irrlicht Lime SDK version 1.6
 
+This is Irrlich Lime adapted to Wolven Kit. It will not work nor compile without Irrlicht adapted to Wolven Kit.
+
 The Irrlicht Lime (or simply "Lime") is a .NET wrapper for the [Irrlicht Engine](http://irrlicht.sourceforge.net). It wraps most of the API available in native library, easily allowing you to use 2D/3D graphics in your application, written in C#, VB.NET or other .NET language.
 
 Currently Lime is being develop under Visual Studio 2019 with .NET Framework 4.0. It includes bunch of examples and IntelliSense documentation.
