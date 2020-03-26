@@ -613,6 +613,21 @@
     <ClInclude Include="WriteFile.h">
       <Filter>IO</Filter>
     </ClInclude>
+    <ClInclude Include="SJoint.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SPositionKey.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SRotationKey.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SScaleKey.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SWeight.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GPUProgrammingServices.cpp">
@@ -908,6 +923,21 @@
     </ClCompile>
     <ClCompile Include="Attributes.cpp">
       <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="SJoint.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SPositionKey.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SRotationKey.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SScaleKey.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SWeight.cpp">
+      <Filter>Scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

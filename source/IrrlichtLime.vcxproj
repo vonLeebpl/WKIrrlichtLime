@@ -257,6 +257,11 @@
     <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="SceneParameters.h" />
     <ClInclude Include="ShaderCallBackInheritor.h" />
+    <ClInclude Include="SJoint.h" />
+    <ClInclude Include="SPositionKey.h" />
+    <ClInclude Include="SRotationKey.h" />
+    <ClInclude Include="SScaleKey.h" />
+    <ClInclude Include="SWeight.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureClamp.h" />
     <ClInclude Include="TextureCreationFlag.h" />
@@ -436,6 +441,11 @@
     <ClCompile Include="MaterialRendererServices.cpp" />
     <ClCompile Include="Randomizer.cpp" />
     <ClCompile Include="ReadFile.cpp" />
+    <ClCompile Include="SJoint.cpp" />
+    <ClCompile Include="SPositionKey.cpp" />
+    <ClCompile Include="SRotationKey.cpp" />
+    <ClCompile Include="SScaleKey.cpp" />
+    <ClCompile Include="SWeight.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TexturePainter.cpp" />
     <ClCompile Include="VideoDriver.cpp" />
