@@ -19,6 +19,7 @@
 #include "MeshLoader.h"
 #include "MeshManipulator.h"
 #include "MeshSceneNode.h"
+#include "MeshWriter.h"
 #include "MetaTriangleSelector.h"
 #include "ParticleSystemSceneNode.h"
 #include "ReadFile.h"
@@ -58,6 +59,12 @@ SceneManager::SceneManager(scene::ISceneManager* ref)
 	LIME_ASSERT(ref != nullptr);
 	m_SceneManager = ref;
 }
+
+MeshWriter^ SceneManager::CreateMeshWriter(MeshWriterType type)
+{
+	return MeshWriter::Wrap(m_SceneManager->createMeshWriter((EMESH_WRITER_TYPE)type));
+}
+
 
 AnimatedMeshSceneNode^ SceneManager::AddAnimatedMeshSceneNode(AnimatedMesh^ mesh, SceneNode^ parent, int id,
 	Vector3Df^ position, Vector3Df^ rotation, Vector3Df^ scale, bool alsoAddIfMeshPointerZero)

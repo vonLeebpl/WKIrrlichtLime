@@ -249,6 +249,9 @@
     <ClInclude Include="MaterialRenderer.h" />
     <ClInclude Include="MaterialRendererServices.h" />
     <ClInclude Include="MaterialType.h" />
+    <ClInclude Include="MeshWriter.h" />
+    <ClInclude Include="MeshWriterFlag.h" />
+    <ClInclude Include="MeshWriterType.h" />
     <ClInclude Include="ModulateFunc.h" />
     <ClInclude Include="NamedPath.h" />
     <ClInclude Include="PixelShaderType.h" />
@@ -261,6 +264,7 @@
     <ClInclude Include="SPositionKey.h" />
     <ClInclude Include="SRotationKey.h" />
     <ClInclude Include="SScaleKey.h" />
+    <ClInclude Include="StaticMesh.h" />
     <ClInclude Include="SWeight.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureClamp.h" />
@@ -439,12 +443,14 @@
     <ClCompile Include="MaterialLayer.cpp" />
     <ClCompile Include="MaterialRenderer.cpp" />
     <ClCompile Include="MaterialRendererServices.cpp" />
+    <ClCompile Include="MeshWriter.cpp" />
     <ClCompile Include="Randomizer.cpp" />
     <ClCompile Include="ReadFile.cpp" />
     <ClCompile Include="SJoint.cpp" />
     <ClCompile Include="SPositionKey.cpp" />
     <ClCompile Include="SRotationKey.cpp" />
     <ClCompile Include="SScaleKey.cpp" />
+    <ClCompile Include="StaticMesh.cpp" />
     <ClCompile Include="SWeight.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TexturePainter.cpp" />

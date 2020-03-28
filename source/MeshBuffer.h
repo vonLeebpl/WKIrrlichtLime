@@ -28,6 +28,7 @@ public:
 	Vector3Df^ GetPosition(int vertexIndex);
 	Vector2Df^ GetTCoords(int vertexIndex);
 	Object^ GetVertex(int vertexIndex);
+	//Video::IVertex3D^ GetVertex(int vertexIndex);
 
 	void RecalculateBoundingBox();
 

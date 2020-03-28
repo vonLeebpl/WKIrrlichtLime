@@ -2,6 +2,8 @@
 
 #include "stdafx.h"
 #include "ReferenceCounted.h"
+#include "MeshWriterType.h"
+
 
 using namespace irr;
 using namespace System;
@@ -27,6 +29,7 @@ ref class MeshCache;
 ref class MeshLoader;
 ref class MeshManipulator;
 ref class MeshSceneNode;
+ref class MeshWriter;
 ref class MetaTriangleSelector;
 ref class ParticleSystemSceneNode;
 ref class SceneCollisionManager;
@@ -276,6 +279,8 @@ public:
 	SceneNodeAnimator^ CreateFollowSplineAnimator(List<Vector3Df^>^ points, float startTime, float speed);
 	SceneNodeAnimator^ CreateFollowSplineAnimator(List<Vector3Df^>^ points, float startTime);
 	SceneNodeAnimator^ CreateFollowSplineAnimator(List<Vector3Df^>^ points);
+	
+	MeshWriter^ CreateMeshWriter(MeshWriterType type);
 
 	MetaTriangleSelector^ CreateMetaTriangleSelector();
 

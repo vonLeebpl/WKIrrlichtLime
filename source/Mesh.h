@@ -18,15 +18,15 @@ public:
 
 	static Mesh^ Create();
 
-	void AddMeshBuffer(MeshBuffer^ buffer);
+	//void virtual AddMeshBuffer(MeshBuffer^ buffer);
 	
 	MeshBuffer^ GetMeshBuffer(Video::Material^ material);
 	MeshBuffer^ GetMeshBuffer(int index);
 
-	void RecalculateBoundingBox();
+	// void RecalculateBoundingBox(); //vl
 
-	void RemoveMeshBuffer(int index);
-	void RemoveMeshBuffer(int index, int count);
+	// void RemoveMeshBuffer(int index); //vl
+	// void RemoveMeshBuffer(int index, int count); //vl
 
 	/// <summary>Flag the meshbuffer as changed, reloads hardware buffers.
 	/// This method has to be called every time the vertices or indices have changed. Otherwise, changes won't be updated on the GPU in the next render cycle.</summary>

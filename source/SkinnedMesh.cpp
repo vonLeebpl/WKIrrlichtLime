@@ -19,8 +19,7 @@ SkinnedMesh^ SkinnedMesh::Wrap(scene::ISkinnedMesh* ref)
 	return gcnew SkinnedMesh(ref);
 }
 
-SkinnedMesh::SkinnedMesh(scene::ISkinnedMesh* ref)
-	: AnimatedMesh(ref)
+SkinnedMesh::SkinnedMesh(scene::ISkinnedMesh* ref) : AnimatedMesh(ref)
 {
 	LIME_ASSERT(ref != nullptr);
 	m_SkinnedMesh = ref;
@@ -41,24 +40,30 @@ void SkinnedMesh::FinalizeMeshPopulation()
 	m_SkinnedMesh->finalize();
 }
 
+
 void SkinnedMesh::AddMeshBuffer(MeshBuffer^ meshBuffer)
 {
 	LIME_ASSERT(meshBuffer != nullptr);
 
 	SSkinMeshBuffer* buffer = m_SkinnedMesh->addMeshBuffer();
 	buffer->Vertices_Standard.reallocate(meshBuffer->VertexCount);
-	for (int i=0; i < meshBuffer->VertexCount; i++)
+	
+	for (int i = 0; i < meshBuffer->VertexCount; i++)
 	{
 		buffer->Vertices_Standard.push_back(video::S3DVertex());
-		buffer->Vertices_Standard[i].Pos = (irr::core::vector3df)meshBuffer->GetVertex(i)->Position;
-		buffer->Vertices_Standard[i].Color = (irr::video::SColor)meshBuffer->GetVertex(i)->Color;
-		buffer->Vertices_Standard[i].TCoords = (core::vector2df)meshBuffer->GetVertex(i)->TCoords;
+		Video::Vertex3D^ v = reinterpret_cast<Video::Vertex3D^>(meshBuffer->GetVertex(i)); //vl
+
+		buffer->Vertices_Standard[i].Pos = core::vector3df(v->Position->X, v->Position->Y, v->Position->Z);
+		buffer->Vertices_Standard[i].Color = video::SColor(v->Color->Alpha, v->Color->Red, v->Color->Green, v->Color->Blue);
+		buffer->Vertices_Standard[i].TCoords = core::vector2df(v->TCoords->X, v->TCoords->Y);
 	}
-	buffer->Indices.set_used(meshBuffer->GetIndices16Bit()->Count);
-	for (int i = 0; i < meshBuffer->GetIndices16Bit()->Count; i++)
+	buffer->Indices.set_used(meshBuffer->IndexCount);
+
+	for (int i = 0; i < meshBuffer->IndexCount; i++)
 	{
-		buffer->Indices[i] = meshBuffer->GetIndices16Bit()[i];
+		buffer->Indices[i] = ((array<unsigned short>^)meshBuffer->Indices)[i];
 	}
+	
 }
 
 SJoint^ SkinnedMesh::AddJoint()

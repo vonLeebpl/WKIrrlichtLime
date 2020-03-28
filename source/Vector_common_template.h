@@ -116,6 +116,16 @@ public:
 	}
 
 	/// <summary>
+	/// Negative vector.
+	/// </summary>
+	static _REFCLASS_^ operator - (_REFCLASS_^ v1)
+	{
+		LIME_ASSERT(v1 != nullptr);
+		return gcnew _REFCLASS_(-(*v1->m_NativeValue));
+	}
+
+
+	/// <summary>
 	/// Multiple two vectors.
 	/// </summary>
 	static _REFCLASS_^ operator * (_REFCLASS_^ v1, _REFCLASS_^ v2)
@@ -160,8 +170,7 @@ public:
 	/// <summary>
 	/// Copy constructor.
 	/// </summary>
-	_REFCLASS_(_REFCLASS_^ copy)
-		: Lime::NativeValue<_WRAPCLASS_>(true)
+	_REFCLASS_(_REFCLASS_^ copy) : Lime::NativeValue<_WRAPCLASS_>(true)
 	{
 		LIME_ASSERT(copy != nullptr);
 		m_NativeValue = new _WRAPCLASS_(*copy->m_NativeValue);

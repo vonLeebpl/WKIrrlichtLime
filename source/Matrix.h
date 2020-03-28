@@ -465,6 +465,29 @@ public:
 
 		return nullptr;
 	}
+	
+	Vector3Df^ GetRotationDegrees(Vector3Df^ scale)
+	{
+		return gcnew Vector3Df(m_NativeValue->getRotationDegrees(*scale->m_NativeValue));
+	}
+
+	void GetTextureScale([Out] float% sx, [Out] float% sy)
+	{
+		float sx_;
+		float sy_;
+		m_NativeValue->getTextureScale(sx_, sy_);
+		sx = sx_;
+		sy = sy_;
+	}
+
+	void GetTextureTranslate([Out] float% x, [Out] float% y)
+	{
+		float x_;
+		float y_;
+		m_NativeValue->getTextureTranslate(x_, y_);
+		x = x_;
+		y = y_;
+	}
 
 	/// <summary>
 	/// Rotate a vector by the inverse of the rotation part of this matrix.

@@ -92,6 +92,8 @@ public:
 		return this;
 	}
 
+	
+
 	/// <summary>
 	/// Rotates this vector by a specified number of degrees around the Z axis and the specified center.
 	/// </summary>
