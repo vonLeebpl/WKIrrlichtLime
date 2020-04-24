@@ -11,6 +11,7 @@ namespace IO { ref class ReadFile; }
 namespace Scene {
 
 ref class AnimatedMesh;
+ref class MeshLoaderHelper;
 
 public ref class MeshLoader : ReferenceCounted
 {
@@ -18,6 +19,8 @@ public:
 
 	AnimatedMesh^ CreateMesh(IO::ReadFile^ file);
 	bool IsALoadableFileExtension(String^ filename);
+
+	MeshLoaderHelper^ getMeshLoaderHelper();
 
 internal:
 

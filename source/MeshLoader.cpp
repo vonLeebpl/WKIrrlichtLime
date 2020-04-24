@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "AnimatedMesh.h"
 #include "MeshLoader.h"
+#include "MeshLoaderHelper.h"
 #include "ReadFile.h"
 #include "ReferenceCounted.h"
 
@@ -37,6 +38,12 @@ bool MeshLoader::IsALoadableFileExtension(String^ filename)
 {
 	LIME_ASSERT(filename != nullptr);
 	return m_MeshLoader->isALoadableFileExtension(Lime::StringToPath(filename));
+}
+
+MeshLoaderHelper^ MeshLoader::getMeshLoaderHelper()
+{
+	scene::IMeshLoaderHelper* h = m_MeshLoader->getMeshLoaderHelper();
+	return MeshLoaderHelper::Wrap(h);
 }
 
 } // end namespace Scene

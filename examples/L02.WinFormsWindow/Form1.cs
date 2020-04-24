@@ -6,6 +6,8 @@ using IrrlichtLime;
 using IrrlichtLime.Core;
 using IrrlichtLime.Video;
 using IrrlichtLime.Scene;
+using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace L02.WinFormsWindow
 {
@@ -91,14 +93,78 @@ namespace L02.WinFormsWindow
 			if (dev == null)
 				throw new Exception("Failed to create Irrlicht device.");
 
+			dev.Logger.LogLevel = LogLevel.Warning;
 			VideoDriver drv = dev.VideoDriver;
 			SceneManager smgr = dev.SceneManager;
 
+			smgr.FileSystem.AddFileArchive("E:/WitcherMods/modTest/Test/files/Mod/Bundle");
+			smgr.FileSystem.AddFileArchive("E:/WitcherMods/modTest/Test/files/Raw/Mod/TextureCache");
+
+			smgr.Attributes.AddValue("TW_TW3_LOAD_SKEL", true);
+			smgr.Attributes.AddValue("TW_TW3_LOAD_BEST_LOD_ONLY", true);
+
 			// setup a simple 3d scene
 
-			CameraSceneNode cam = smgr.AddCameraSceneNode();
-			cam.Target = new Vector3Df(0);
+			//CameraSceneNode cam = smgr.AddCameraSceneNode();
+			//cam.Target = new Vector3Df(0);
 
+			// added by vl
+			AnimatedMesh mesh = smgr.GetMesh("E:/WitcherMods/modTest/Test/files/Mod/Bundle/characters/models/animals/cat/model/t_01__cat.w2mesh");
+			if (mesh == null)
+				throw new Exception("Failed to load mesh.");
+
+			smgr.MeshManipulator.RecalculateNormals(mesh);
+
+			List<String> animList = null;
+
+			float scaleMul = 1.0f;
+			AnimatedMeshSceneNode node = smgr.AddAnimatedMeshSceneNode(mesh);
+			MeshLoaderHelper helper = smgr.GetMeshLoader(smgr.MeshLoaderCount - 1).getMeshLoaderHelper();
+			if (node != null)
+			{
+				scaleMul = node.BoundingBox.Radius / 4;
+				node.Scale = new Vector3Df(3.0f);
+				node.SetMaterialFlag(MaterialFlag.Lighting, false);
+
+				SkinnedMesh sm = helper.loadRig("E:/WitcherMods/modTest/Test/files/Mod/Bundle/characters/base_entities/cat_base/cat_base.w2rig", mesh);
+				if(sm == null)
+					throw new Exception("Failed to load rig.");
+
+				animList = helper.loadAnimation("E:/WitcherMods/modTest/Test/files/Mod/Bundle/animations/animals/cat/cat_animation.w2anims", sm);
+				if (animList.Count > 0)
+				{
+					AnimatedMesh am = helper.applyAnimation(animList[0], sm);
+					node.Mesh = am;
+				}
+				//scaleSkeleton(sm, 3.0f);
+				//sm.SkinMesh();
+				
+				mesh.Drop();
+				sm.Drop();
+				setMaterialsSettings(node);
+				/*
+				animList = helper.loadAnimation("E:/WitcherMods/modTest/Test/files/Mod/Bundle/animations/animals/cat/cat_animation.w2anims", node);
+				if (animList.Count > 0)
+				{
+					helper.applyAnimation(animList[0]);
+				}
+				*/
+				
+			}
+
+			var camera = smgr.AddCameraSceneNode(null,
+					new Vector3Df(node.BoundingBox.Radius * 8, node.BoundingBox.Radius, 0),
+					new Vector3Df(0, node.BoundingBox.Radius, 0)
+				);
+
+			camera.NearValue = 0.001f;
+			camera.FOV = 45.0f * 3.14f / 180.0f;
+
+			node.DebugDataVisible ^= DebugSceneType.BBox | DebugSceneType.Skeleton;
+
+			node.Position = new Vector3Df(0.0f);
+
+			/*
 			SceneNodeAnimator anim = smgr.CreateFlyCircleAnimator(new Vector3Df(0, 15, 0), 30.0f);
 			cam.AddAnimator(anim);
 			anim.Drop();
@@ -108,6 +174,7 @@ namespace L02.WinFormsWindow
 			cube.SetMaterialTexture(1, drv.GetTexture("../../media/water.jpg"));
 			cube.SetMaterialFlag(MaterialFlag.Lighting, false);
 			cube.SetMaterialType(MaterialType.Reflection2Layer);
+			*/
 
 			if (settings.BackColor == null)
 			{
@@ -170,6 +237,7 @@ namespace L02.WinFormsWindow
 			}
 		}
 
+
 		private void backgroundRendering_ProgressChanged(object sender, ProgressChangedEventArgs e)
 		{
 			// process reported progress
@@ -195,6 +263,49 @@ namespace L02.WinFormsWindow
 				Close();
 
 			labelRenderingStatus.Text = "No rendering";
+		}
+		/*
+		void scaleSkeleton(SkinnedMesh mesh, float factor)
+		{
+			int nbJoints = mesh.JointCount;
+			for (int i = 0; i < nbJoints; ++i)
+			{
+				SJoint joint = mesh.GetAllJoints()[i];
+				joint.Animatedposition *= factor;
+			}
+		}
+		*/
+		private void setMaterialsSettings(AnimatedMeshSceneNode node)
+		{
+			if (node != null)
+			{
+				// materials with normal maps are not handled
+				for (int i = 0; i < node.MaterialCount; ++i)
+				{
+					Material material = node.GetMaterial(i);
+					if (material.Type == MaterialType.NormalMapSolid
+						|| material.Type == MaterialType.ParallaxMapSolid)
+					{
+						material.Type = MaterialType.Solid;
+					}
+					else if (material.Type == MaterialType.NormalMapTransparentAddColor
+						|| material.Type == MaterialType.ParallaxMapTransparentAddColor)
+					{
+						material.Type = MaterialType.TransparentAddColor;
+					}
+					else if (material.Type == MaterialType.NormalMapTransparentVertexAlpha
+						|| material.Type == MaterialType.ParallaxMapTransparentVertexAlpha)
+					{
+						material.Type = MaterialType.TransparentVertexAlpha;
+					}
+				}
+
+				node.SetMaterialFlag(MaterialFlag.Lighting, false);
+				node.SetMaterialFlag(MaterialFlag.BackFaceCulling, false);
+
+				for (int i = 1; i < 8; ++i) // 8 = _IRR_MATERIAL_MAX_TEXTURES_
+					node.SetMaterialTexture(i, null);
+			}
 		}
 	}
 }

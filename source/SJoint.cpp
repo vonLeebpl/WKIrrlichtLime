@@ -34,14 +34,21 @@ void SJoint::Name::set(String^ name)
 
 List<SJoint^>^ SJoint::Children::get()
 {
-	return _Children;
+	core::array<scene::ISkinnedMesh::SJoint*> ret = m_Joint->Children;
+	List<SJoint^>^ c = gcnew List<SJoint^>;
+	for (u32 i = 0; i < ret.size(); ++i)
+	{
+		c->Add(gcnew SJoint(ret[i]));
+	}
+
+	return c;
 }
 
 void SJoint::AddChildren(SJoint^ children)
 {
 	scene::ISkinnedMesh::SJoint* buf = children->m_Joint;
 	m_Joint->Children.insert(buf);
-	_Children->Add(children);
+	//_Children->Add(children);
 }
 
 Matrix^ SJoint::LocalMatrix::get()

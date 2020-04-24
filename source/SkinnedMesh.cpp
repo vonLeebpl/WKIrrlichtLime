@@ -23,6 +23,7 @@ SkinnedMesh::SkinnedMesh(scene::ISkinnedMesh* ref) : AnimatedMesh(ref)
 {
 	LIME_ASSERT(ref != nullptr);
 	m_SkinnedMesh = ref;
+	
 }
 
 void SkinnedMesh::AnimateMesh(float frame, float blend)
@@ -69,12 +70,17 @@ void SkinnedMesh::AddMeshBuffer(MeshBuffer^ meshBuffer)
 SJoint^ SkinnedMesh::AddJoint()
 {
 	SJoint^ newJoint = gcnew SJoint(m_SkinnedMesh->addJoint());
-	Joints->Add(newJoint);
 	return newJoint;
 }
 
 List<SJoint^>^ SkinnedMesh::GetAllJoints()
 {
+	core::array<irr::scene::ISkinnedMesh::SJoint*> ret = m_SkinnedMesh->getAllJoints();
+	List<SJoint^>^ Joints = gcnew List<SJoint^>;
+	for (u32 i = 0; i < ret.size(); ++i)
+	{
+		Joints->Add(gcnew SJoint(ret[i]));
+	}
 	return Joints;
 }
 

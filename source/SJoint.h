@@ -26,7 +26,7 @@ public:
 
 private:
 
-	List<SJoint^>^ _Children = gcnew List<SJoint^>();
+	//List<SJoint^>^ _Children = gcnew List<SJoint^>();
 
 internal:
 

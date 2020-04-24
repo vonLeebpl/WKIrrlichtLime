@@ -51,7 +51,7 @@ public:
 
 private:
 
-	List<SJoint^>^ Joints = gcnew List<SJoint^>();
+	//List<SJoint^>^ Joints = gcnew List<SJoint^>();
 
 internal:
 

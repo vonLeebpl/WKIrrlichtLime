@@ -15,7 +15,8 @@ public enum class MeshWriterType
 	Stl = EMWT_STL,
 	Obj = EMWT_OBJ,
 	Ply = EMWT_PLY,
-	B3d = EMWT_B3D
+	B3d = EMWT_B3D,
+	Fbx = EMWT_FBX
 };
 
 } // end namespace Scene
